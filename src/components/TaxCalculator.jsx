@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import TaxInputForm from './TaxInputForm';
+import TaxCalculationResultSummary from './TaxCalculationResultSummary';
 
 const TaxCalculator = () => {
+
+    const [taxCalculationResultSummaryData, setTaxCalculationResultSummaryData] = useState([]);
 
     const calculateTaxes = async (payload) => {
         try {
@@ -12,6 +15,7 @@ const TaxCalculator = () => {
             });
 
             const data = await response.json();
+            setTaxCalculationResultSummaryData(data);
         } catch (error) {
             console.error('Tax calculation failed: ', error);
         }
@@ -21,6 +25,7 @@ const TaxCalculator = () => {
         <div className="container py-5">
             <h1 className="mb-4 text-center">Federal Income Tax Estimator</h1>
             <TaxInputForm onCalculate={calculateTaxes} />
+            <TaxCalculationResultSummary data={taxCalculationResultSummaryData} />
         </div>
     );
 };
