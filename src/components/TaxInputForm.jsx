@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TaxInputForm = ({ onCalculate }) => {
+const TaxInputForm = ({ onCalculate, formErrors = {} }) => {
 
     const [grossIncome, setGrossIncome] = useState(0);
     const [filingStatusOptions, setFilingStatusOptions] = useState([]);
@@ -82,6 +82,9 @@ const TaxInputForm = ({ onCalculate }) => {
                                     ))
                                 )}
                             </select>
+                            {formErrors.selectedTaxYear && (
+                                <div className="text-danger">{formErrors.selectedTaxYear}</div>
+                            )}
                         </div>
 
                         {/* Gross Income */}
@@ -98,6 +101,9 @@ const TaxInputForm = ({ onCalculate }) => {
                                 value={grossIncome}
                                 onChange={(e) => setGrossIncome(safeNumber(e.target.value))}
                             />
+                            {formErrors.grossIncome && (
+                                <div className="text-danger">{formErrors.grossIncome}</div>
+                            )}
                         </div>
 
                         {/* Filing Status */}
@@ -125,6 +131,9 @@ const TaxInputForm = ({ onCalculate }) => {
                                     ))
                                 )}
                             </select>
+                            {formErrors.selectedFilingStatus && (
+                                <div className="text-danger">{formErrors.selectedFilingStatus}</div>
+                            )}
                         </div>
 
                         {/* Total Deductions */}
@@ -141,6 +150,9 @@ const TaxInputForm = ({ onCalculate }) => {
                                 value={totalDeductions}
                                 onChange={(e) => setTotalDeductions(safeNumber(e.target.value))}
                             />
+                            {formErrors.totalDeductions && (
+                                <div className="text-danger">{formErrors.totalDeductions}</div>
+                            )}
                         </div>
 
                         {/* Total Credits */}
@@ -157,6 +169,9 @@ const TaxInputForm = ({ onCalculate }) => {
                                 value={totalCredits}
                                 onChange={(e) => setTotalCredits(safeNumber(e.target.value))}
                             />
+                            {formErrors.totalCredits && (
+                                <div className="text-danger">{formErrors.totalCredits}</div>
+                            )}
                         </div>
 
                         {/* Submit Button */}
@@ -169,6 +184,11 @@ const TaxInputForm = ({ onCalculate }) => {
                                 Calculate Taxes
                             </button>
                         </div>
+
+                        {/* General errors */}
+                        {formErrors.general && (
+                            <div className="col-12 text-danger mt-3">{formErrors.general}</div>
+                        )}
                     </div>
                 </form>
             </div>
